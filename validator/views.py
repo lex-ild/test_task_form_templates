@@ -1,14 +1,12 @@
-import json
 import re
 from typing import Any
 
 from rest_framework.decorators import api_view
-from rest_framework import serializers, status
 from rest_framework.response import Response
 
 from .models import FormTemplate, DataType
 
-# OLD_VALID_PHONE = re.compile(r"^[\+][7][\s][0-9]{3}[\s][0-9]{3}[\s][0-9]{2}[\s][0-9]{2}$")
+
 VALID_EMAIL = re.compile(r"^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$")
 VALID_PHONE = re.compile(r"^[\s][7][\s][0-9]{3}[\s][0-9]{3}[\s][0-9]{2}[\s][0-9]{2}$")
 VALID_DATE = re.compile(
@@ -19,14 +17,8 @@ VALID_OTHER_DATE = re.compile(
 )
 
 
-class ValidatorSerializer(serializers.Serializer):
-    class Meta:
-        model = FormTemplate
-        fields = '__all__'
-
-
 @api_view(['POST'])
-def find_form_template(request):
+def find_form_template(request) -> dict[str: str]:
     data: dict[str, Any] = request.query_params.dict()
 
     parsed_form_data: dict = {}
@@ -52,7 +44,7 @@ def find_form_template(request):
     return Response(data=result_data)
 
 
-def find_data_type(value: str):
+def find_data_type(value: str) -> DataType:
     if VALID_EMAIL.match(value):
         return DataType.EMAIL
     if VALID_PHONE.match(value):
