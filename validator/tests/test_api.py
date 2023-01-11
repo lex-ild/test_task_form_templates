@@ -15,7 +15,6 @@ class ValidatorApiTestCase(APITestCase):
             },
         )
         test_form.save()
-        test_form.refresh_from_db()
 
         url = reverse('find-template') + '?employee_email=alskdn@mail.ru&employee_phone=+7 999 999 99 99'\
                                          '&employee_description=alskdn alsdn asd'
@@ -34,7 +33,6 @@ class ValidatorApiTestCase(APITestCase):
             },
         )
         test_form.save()
-        test_form.refresh_from_db()
 
         url = reverse('find-template') + '?employee_email=alskdn@mail.ru&employee_phone=+7 999 999 99 99'\
                                          '&employee_description=alskdn alsdn asd&employee_phone=+7 222 333 99 99'
@@ -53,7 +51,6 @@ class ValidatorApiTestCase(APITestCase):
             },
         )
         test_form.save()
-        test_form.refresh_from_db()
 
         url = reverse('find-template') + '?partner_email=alskdn@mail.ru&partner_phone=+7 999 999 99 99'\
                                          '&registration_date=2022-10-10'
@@ -73,7 +70,6 @@ class ValidatorApiTestCase(APITestCase):
             },
         )
         test_form.save()
-        test_form.refresh_from_db()
 
         url = reverse('find-template') + '?user_email=alskdn@mail.ru&user_phone=+7 999 993 92 99'\
                                          '&order_date=10.12.2022&order_description=asldkmqawldkn2das'
@@ -93,7 +89,6 @@ class ValidatorApiTestCase(APITestCase):
             },
         )
         test_form.save()
-        test_form.refresh_from_db()
 
         url = reverse('find-template') + '?email=alskdn@mail.ru&random_phone=+7 999 993 92 99'\
                                          '&date=10.12.2022&order_description=asldkmqawldkn2das'

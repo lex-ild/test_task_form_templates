@@ -25,15 +25,18 @@ def find_form_template(request) -> dict[str: str]:
     returned_form_data: dict = {}
 
     for key, value in data.items():
+        # проверяем данные из query_params и типизируем
         data_type = find_data_type(value)
         parsed_form_data[f'form_data__{key}'] = data_type.value
 
         returned_form_data[key] = data_type.value
 
+    # ищем нужный шаблон по полям формы
     template = FormTemplate.objects.filter(
         **parsed_form_data
     ).first()
 
+    # если шаблон найден, возвращаем его название
     if template:
         result_data = {
             'name': template.name,
@@ -45,6 +48,7 @@ def find_form_template(request) -> dict[str: str]:
 
 
 def find_data_type(value: str) -> DataType:
+    # проверяем входящие данные по мэтчу с соответствующим регулярным выражением и возвращаем тип
     if VALID_EMAIL.match(value):
         return DataType.EMAIL
     if VALID_PHONE.match(value):
